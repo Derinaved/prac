@@ -18,14 +18,18 @@
             <label for="exampleFormControlTextarea1" class="form-label">Описание</label>
             <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3"></textarea>
         </div>
-        <select name="worker_id" class="form-select" aria-label="Default select example">
-{{--            {{$users = \App\Models\User::all()}}--}}
-            <option selected>Выберите работника</option>
-            @foreach($users as $user)
-                <option  value="{{$user->id}}"> {{$user->login}} </option>
+        <select name="categories_id" class="form-select" aria-label="Default select example">
+            <option selected>Выберите категорию</option>
+            {{$categories = \App\Models\Category::all()}}
+            @foreach($categories as $category)
+                <option  value="{{$category->id}}"> {{$category->title}} </option>
             @endforeach
         </select>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="input-group mb-3">
+            <label class="input-group-text"  for="inputGroupFile01">Upload</label>
+            <input type="file" name="image" class="form-control" id="inputGroupFile01">
+        </div>
+        <button type="submit" class="btn btn-primary">Создать</button>
     </form>
     <div class="cr">
         <div class="cr2">
@@ -34,7 +38,8 @@
                     Ваши созданные задачи
                 </legend>
             </div>
-            @foreach($created_tasks as $task)
+            {{$tasks = \App\Models\Task::all()}}
+            @foreach($tasks as $task)
 
 
                 <div class="card w-100 mb-3" >
@@ -45,28 +50,28 @@
                         <a href="#" class="btn btn-primary">Подробнее</a>
                     </div>
                 </div>
-
-            @endforeach
         </div>
-        <div class="cr2">
-            <div>
-                <legend>
-                    Ваши рабочие задачи
-                </legend>
-            </div>
+{{--            @endforeach--}}
+{{--        </div>--}}
+{{--        <div class="cr2">--}}
+{{--            <div>--}}
+{{--                <legend>--}}
+{{--                    Ваши рабочие задачи--}}
+{{--                </legend>--}}
+{{--            </div>--}}
 
-            @foreach($work_tasks as $work_task)
+{{--            @foreach($work_tasks as $work_task)--}}
 
-                <div class="card w-100 mb-3" >
-                    <div class="card-body">
-                        <h5 class="card-title">{{$work_task->title}}</h5>
-                        <p class="card-text">Создал: {{\App\Models\User::query()->find($work_task->user_id)->login}}</p>
-                        <p class="card-text">Выполняет: {{\App\Models\User::query()->find($work_task->worker_id)->login}}</p>
-                        <a href="#" class="btn btn-primary">Подробнее</a>
-                    </div>
-                </div>
+{{--                <div class="card w-100 mb-3" >--}}
+{{--                    <div class="card-body">--}}
+{{--                        <h5 class="card-title">{{$work_task->title}}</h5>--}}
+{{--                        <p class="card-text">Создал: {{\App\Models\User::query()->find($work_task->user_id)->login}}</p>--}}
+{{--                        <p class="card-text">Выполняет: {{\App\Models\User::query()->find($work_task->worker_id)->login}}</p>--}}
+{{--                        <a href="#" class="btn btn-primary">Подробнее</a>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
 
-            @endforeach
-        </div>
-    </div>
+{{--            @endforeach--}}
+{{--        </div>--}}
+{{--    </div>--}}
 @endsection

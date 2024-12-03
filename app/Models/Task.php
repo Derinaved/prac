@@ -12,8 +12,8 @@ class Task extends Model
     protected $fillable = [
         'title',
         'description',
-        'worker_id',
-        'user_id',
-
+        'categories_id',
+        'statues_id',
+        'image',
     ];
 }

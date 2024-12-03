@@ -36,10 +36,8 @@ class UserController extends Controller
     {
         $user = Auth::user();
         $users = User::all();
-        $work_tasks = Task::query()->where('worker_id', '=', Auth::id())->get();
-        $created_tasks = Task::query()->where('user_id', '=', Auth::id())->get();
 //        dd($created_tasks, $work_tasks);
-        return view('profile', compact('user', 'users', 'work_tasks', 'created_tasks'));
+        return view('profile', compact('user', 'users'));
     }
 
     /**

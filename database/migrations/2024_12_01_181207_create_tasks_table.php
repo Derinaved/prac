@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -14,19 +15,25 @@ return new class extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('description')->nullable();
+            $table->string('description');
+            $table->string('image');
 
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->index('user_id', 'task_user_idx');
-            $table->foreign('user_id', 'task_user_fk')->on('users')->references('id');
+            $table->unsignedBigInteger('categories_id');
+            $table->index('categories_id', 'task_categories_idx');
+            $table->foreign('categories_id', 'task_categories_fk')->on('categories')->references('id');
 
-            $table->unsignedBigInteger('worker_id')->nullable();
-            $table->index('worker_id', 'task_worker_idx');
-            $table->foreign('worker_id', 'task_worker_fk')->on('users')->references('id');
-
+            $table->unsignedBigInteger('statues_id');
+            $table->index('statues_id', 'task_statues_idx');
+            $table->foreign('statues_id', 'task_statues_fk')->on('statues')->references('id');
 
             $table->timestamps();
         });
+        DB::table('tasks')->insert([
+            'title' => 'Яма на дороге',
+            'description' => 'Яма на дороге',
+            'categories_id' => '1',
+            'statues_id' => '1',
+        ]);
     }
 
     /**

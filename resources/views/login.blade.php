@@ -7,7 +7,10 @@
     </legend>
     <div class="mb-3 max-w-xL">
         <label for="exampleInputEmail1" class=" form-label">Логин</label>
-        <input type="text" class="form-control" name="login" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <input type="text" class="form-control {{$errors->has('login') ? 'bg-danger-subtle border-danger-subtle'  : 'bg-primary-subtle border-primary-subtle'}}" name="login" id="exampleInputEmail1" aria-describedby="emailHelp">
+    @error('login')
+        <p>{{$message}}</p>
+    @enderror
     </div>
     <div class="mb-3 max-w-xL">
         <label for="exampleInputPassword1" class="form-label">Пароль</label>
