@@ -13,7 +13,8 @@ class Task extends Model
         'title',
         'description',
         'categories_id',
-        'statues_id',
+        'statuses_id',
         'image',
+        'user_id'
     ];
 }

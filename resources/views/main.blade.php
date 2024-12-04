@@ -44,14 +44,20 @@
     <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top" data-bs-theme="dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="{{route('home')}}">MyTask</a>
+                <a class="navbar-brand" href="{{route('home')}}">Главная</a>
 
                     <div class="d-flex">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         @auth
-                           <li> <a href="{{ route('profile', \Illuminate\Support\Facades\Auth::user()->getAuthIdentifier()) }}" class="nav-link">Профиль</a> </li>
+                            @if(Illuminate\Support\Facades\Auth::user()->getAuthIdentifier() == 1)
+                                <li> <a href="{{ route('admin')}}" class="nav-link">Админ панель</a> </li>
+                            @endif
 
-                           <li> <a href="{{ route('logout') }}" class="nav-link">Выйти</a> </li>
+                            <li> <a href="{{ route('create_tasks')}}" class="nav-link">Создать заявку</a> </li>
+
+                            <li> <a href="{{ route('profile', \Illuminate\Support\Facades\Auth::user()->getAuthIdentifier()) }}" class="nav-link">Профиль</a> </li>
+
+                            <li> <a href="{{ route('logout') }}" class="nav-link">Выйти</a> </li>
                         @else
                            <li> <a href="{{ route('login') }}" class="nav-link">Вход</a> </li>
 

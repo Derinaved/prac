@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('statues', function (Blueprint $table) {
+        Schema::create('statuses', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->timestamps();
         });
-        DB::table('statues')->insert([[
+        DB::table('statuses')->insert([[
             'title' => 'Новая'
         ],[
             'title' => 'Решена'

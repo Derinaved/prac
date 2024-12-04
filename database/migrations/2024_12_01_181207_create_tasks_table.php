@@ -22,17 +22,23 @@ return new class extends Migration
             $table->index('categories_id', 'task_categories_idx');
             $table->foreign('categories_id', 'task_categories_fk')->on('categories')->references('id');
 
-            $table->unsignedBigInteger('statues_id');
-            $table->index('statues_id', 'task_statues_idx');
-            $table->foreign('statues_id', 'task_statues_fk')->on('statues')->references('id');
+            $table->unsignedBigInteger('user_id');
+            $table->index('user_id', 'task_user_idx');
+            $table->foreign('user_id', 'task_user_fk')->on('users')->references('id');
+
+            $table->unsignedBigInteger('statuses_id');
+            $table->index('statuses_id', 'task_statuses_idx');
+            $table->foreign('statuses_id', 'task_statuses_fk')->on('statuses')->references('id');
 
             $table->timestamps();
         });
         DB::table('tasks')->insert([
             'title' => 'Яма на дороге',
             'description' => 'Яма на дороге',
+            'user_id' => '1',
             'categories_id' => '1',
-            'statues_id' => '1',
+            'statuses_id' => '1',
+            'image' => '4.png'
         ]);
     }
 
