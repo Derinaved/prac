@@ -27,7 +27,7 @@ class StatusController extends Controller
         $task->image = $originalFile;
         $task->statuses_id = 2;
         $task->save();
-        return view('admin');
+        return redirect()->route('filter');
     }
 
     public function status_upd_otk(Request $request, Task $task)
@@ -38,6 +38,6 @@ class StatusController extends Controller
         $task->statuses_id = 3;
         $task->save();
 //        dd($request->only('description'));
-        return view('admin');
+        return redirect()->route('filter');
     }
 }

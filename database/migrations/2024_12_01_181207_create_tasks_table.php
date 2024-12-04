@@ -38,7 +38,8 @@ return new class extends Migration
             'user_id' => '1',
             'categories_id' => '1',
             'statuses_id' => '1',
-            'image' => '4.png'
+            'image' => '4.png',
+            'created_at' => '2024-12-04 03:24:20'
         ]);
     }
 

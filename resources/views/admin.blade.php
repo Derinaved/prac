@@ -3,7 +3,7 @@
     <div class="d-flex">
         <form  method="get" action="{{route('filter')}}" class="m-5">
             @csrf
-            <select name="categories_id" class="form-select m-2" aria-label="Default select example">
+            <select name="statuses_id" class="form-select m-2" aria-label="Default select example">
                 <option selected>Статус заявки</option>
             @foreach(\App\Models\Status::all() as $state)
                     <option  value="{{$state->id}}"> {{$state->title}} </option>

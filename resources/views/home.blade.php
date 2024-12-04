@@ -18,6 +18,9 @@
                 <img src="{{asset('image/'. $task->image)}}" width="300" height="300">
 
             </div>
+            <div class="card-footer text-body-secondary">
+                {{$task->created_at}}
+            </div>
         </div>
     @endforeach
 </div>

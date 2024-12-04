@@ -13,12 +13,13 @@ class FilterController extends Controller
             $tasks = Task::all();
         }
         else{
-            $filter = $request->only('categories_id');
-            if ($filter['categories_id'] == "Статус заявки") {
+            $filter = $request->only('statuses_id');
+            if ($filter['statuses_id'] == "Статус заявки") {
                 $tasks = Task::all();
             }
-            else $tasks = Task::query()->where('categories_id', '=', $filter)->get();
+            else $tasks = Task::query()->where('statuses_id', '=', $filter)->get();
         }
+
         return view('admin', compact('tasks'));
     }
 }
