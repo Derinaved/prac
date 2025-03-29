@@ -12,4 +12,13 @@ class Category extends Model
     protected $fillable = [
         'title',
     ];
+
+    public static function roots()
+    {
+        return self::where('parent_id', 0)->get();
+    }
+
+    public function children() {
+        return $this->hasMany(Category::class, 'parent_id');
+    }
 }

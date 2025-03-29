@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -12,93 +11,85 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('groups', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string("title");
 
-            $table->integer('parent_id')->nullable();
-
+            $table->unsignedBigInteger('categories_id');
+            $table->index('categories_id', 'group_categories_idx');
+            $table->foreign('categories_id', 'group_categories_fk')->on('categories')->references('id');
 
             $table->timestamps();
         });
-        DB::table('categories')->insert([[
-            'title' => 'Одежда',
-            'parent_id' => 0
-        ],[
-            'title' => 'Спортивное питание',
-            'parent_id' => 0
-        ],[
-            'title' => 'Спортивное оборудование',
-            'parent_id' => 0
-        ],[
+        DB::table('groups')->insert([[
             'title' => 'Шейкеры',
-            'parent_id' => 2
+            'categories_id' => 2
         ],[
             'title' => 'BCAA',
-            'parent_id' => 2
+            'categories_id' => 2
         ],[
             'title' => 'Батончики',
-            'parent_id' => 2
+            'categories_id' => 2
         ],[
             'title' => 'Креатин',
-            'parent_id' => 2
+            'categories_id' => 2
         ],[
             'title' => 'Протеин',
-            'parent_id' => 2
+            'categories_id' => 2
         ],[
             'title' => 'Напитки',
-            'parent_id' => 2
+            'categories_id' => 2
         ],[
             'title' => 'Аминокислоты',
-            'parent_id' => 2
+            'categories_id' => 2
         ],[
             'title' => 'Кубки',
-            'parent_id' => 3
+            'categories_id' => 3
         ],[
             'title' => 'Медали',
-            'parent_id' => 3
+            'categories_id' => 3
         ],[
             'title' => 'Конусы спортивные',
-            'parent_id' => 3
+            'categories_id' => 3
         ],[
             'title' => 'Свистки',
-            'parent_id' => 3
+            'categories_id' => 3
         ],[
             'title' => 'Кросфит',
-            'parent_id' => 3
+            'categories_id' => 3
         ],[
             'title' => 'Мужская одежда',
-            'parent_id' => 1
+            'categories_id' => 1
         ],[
             'title' => 'Женская одежда',
-            'parent_id' => 1
+            'categories_id' => 1
         ],[
             'title' => 'Брюки',
-            'categories_id' => 17
+            'categories_id' => 1
         ],[
             'title' => 'Обувь',
-            'categories_id' => 17
+            'categories_id' => 16
         ],[
             'title' => 'Комбинезоны',
-            'categories_id' => 17
+            'categories_id' => 16
         ],[
             'title' => 'Брюки',
-            'categories_id' => 16
+            'categories_id' => 17
         ],[
             'title' => 'Обувь',
-            'categories_id' => 16
+            'categories_id' => 17
         ],[
             'title' => 'Куртки',
-            'categories_id' => 16
-        ]]);
+            'categories_id' => 17
+        ]
+            ]);
     }
-
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('groups');
     }
 };

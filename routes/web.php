@@ -52,3 +52,11 @@ Route::patch('status_update/{task}', [StatusController::class, 'status_upd_ok'])
 Route::patch('status_update_otk/{task}', [StatusController::class, 'status_upd_otk'])->name('status_upd_otk');
 
 Route::get('filter', [FilterController::class, 'filter'])->name('filter');
+
+Route::group([
+    'as' => 'blog.',
+    'prefix' => 'blog',
+    ], function () {
+    Route::get('category/{category:slug}', 'BlogController@category')
+        ->name('category');
+});

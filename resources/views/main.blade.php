@@ -46,6 +46,43 @@
             <div class="container-fluid">
                 <a class="navbar-brand" href="{{route('home')}}">Главная</a>
 
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Каталог
+
+                    </button>
+                    @if($items->count())
+                        <ul class="dropdown-menu">
+                            @foreach($items as $item)
+                                <li>
+                                    <a href="#" class="dropdown-item">{{$item->title}}</a>
+                                </li>
+                                @if ($item->children->count())
+                                    <ul>
+                                        @foreach($item->children as $child)
+                                            <a href="#" class="dropdown-item">
+                                                {{$child->title}}
+                                            </a>
+                                            @if($child->children->count())
+                                                <ul>
+                                                    @foreach($child->children as $sec_child)
+                                                        <a href="#" class="dropdown-item">
+                                                            {{$sec_child->title}}
+                                                        </a>
+                                                    @endforeach
+                                                </ul>
+                                            @endif
+
+                                        @endforeach
+                                    </ul>
+                                @endif
+                            @endforeach
+                    @endif
+                        </ul>
+                </div>
+
+                <a class="navbar-brand" href="{{route('home')}}">Обратная связь</a>
+
                     <div class="d-flex">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         @auth

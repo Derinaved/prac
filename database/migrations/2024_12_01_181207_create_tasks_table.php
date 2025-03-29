@@ -26,20 +26,9 @@ return new class extends Migration
             $table->index('user_id', 'task_user_idx');
             $table->foreign('user_id', 'task_user_fk')->on('users')->references('id');
 
-            $table->unsignedBigInteger('statuses_id');
-            $table->index('statuses_id', 'task_statuses_idx');
-            $table->foreign('statuses_id', 'task_statuses_fk')->on('statuses')->references('id');
-
             $table->timestamps();
         });
         DB::table('tasks')->insert([
-            'title' => 'Яма на дороге',
-            'description' => 'Яма на дороге',
-            'user_id' => '1',
-            'categories_id' => '1',
-            'statuses_id' => '1',
-            'image' => '4.png',
-            'created_at' => '2024-12-04 03:24:20'
         ]);
     }
 
