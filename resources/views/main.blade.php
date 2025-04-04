@@ -5,39 +5,9 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/app.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <style>
-        .max-w-xL {
-            width: 500px;
-        }
-        .form{
-            width: 500px;
-
-            display: flex;
-            align-items: stretch;
-            flex-direction: column;
-        }
-        main{
-            display: flex;
-            margin-top: 100px;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        .card-body{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .cr{
-            display: flex;
-            width: 75%;
-            justify-content: center;
-        }
-        .cr2{
-            margin: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>MyTask</title>
 </head>
 <body>
@@ -47,15 +17,16 @@
                 <a class="navbar-brand" href="{{route('home')}}">Главная</a>
 
                 <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button  class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton1"
+                             type="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
                         Каталог
 
                     </button>
                     @if($items->count())
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                             @foreach($items as $item)
                                 <li>
-                                    <a href="#" class="dropdown-item">{{$item->title}}</a>
+                                    <a href="{{route('products.index')}}" class="dropdown-item">{{$item->title}}</a>
                                 </li>
                                 @if ($item->children->count())
                                     <ul>
@@ -80,8 +51,9 @@
                     @endif
                         </ul>
                 </div>
-
-                <a class="navbar-brand" href="{{route('home')}}">Обратная связь</a>
+                    <a class="navbar-brand" href="{{ route('cart.index') }}">Корзина</a>
+                <a class="navbar-brand" href="{{route('create_message')}}">Обратная связь</a>
+                <a class="navbar-brand" href="{{route('show_all_message')}}">Отзывы о магазине</a>
 
                     <div class="d-flex">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -116,3 +88,34 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>
+<script>
+    const dropdownElementList = document.querySelectorAll('.dropdown-toggle')
+    const dropdownList = [...dropdownElementList].map(dropdownToggleEl => new bootstrap.Dropdown(dropdownToggleEl, {
+        popperConfig: {
+            modifiers: [{
+                name: 'offset',
+                options: {
+                    offset: [0, 4] // Для небольшой отстройки от кнопки, если нужно
+                }
+            }]
+        }
+    }))
+
+    // Добавляем поведение при наведении
+    for (const dropdown of dropdownList) {
+        dropdown._element.addEventListener('mouseover', () => {
+            dropdown.show();
+        });
+
+
+        // Закрытие при выходе за пределы dropdown
+        dropdown._menu.addEventListener('mouseleave', () => {
+            dropdown.hide();
+        });
+    }
+</script>
+<footer class="bg-light text-center py-3">
+    <div class="container">
+        <p>&copy; 2023 СпортМагазин</p>
+    </div>
+</footer>

@@ -1,8 +1,12 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\FilterController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MessageController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\TaskControlletr;
 use App\Http\Controllers\UserController;
@@ -60,3 +64,18 @@ Route::group([
     Route::get('category/{category:slug}', 'BlogController@category')
         ->name('category');
 });
+
+Route::get('show_all_message', [MessageController::class, 'index'])->name('show_all_message');
+Route::get('create_message', [MessageController::class, 'create'])->name('create_message');
+Route::post('store_message', [MessageController::class, 'store'])->name('store_message');
+
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+Route::put('/cart/update/{product}', [CartController::class, 'update'])->name('cart.update');
+Route::delete('/cart/remove/{product}', [CartController::class, 'remove'])->name('cart.remove');
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');

@@ -22,9 +22,6 @@ return new class extends Migration
             $table->timestamps();
         });
         DB::table('categories')->insert([[
-            'title' => 'Одежда',
-            'parent_id' => 0
-        ],[
             'title' => 'Спортивное питание',
             'parent_id' => 0
         ],[
@@ -32,64 +29,40 @@ return new class extends Migration
             'parent_id' => 0
         ],[
             'title' => 'Шейкеры',
-            'parent_id' => 2
+            'parent_id' => 1
         ],[
             'title' => 'BCAA',
-            'parent_id' => 2
+            'parent_id' => 1
         ],[
             'title' => 'Батончики',
-            'parent_id' => 2
+            'parent_id' => 1
         ],[
             'title' => 'Креатин',
-            'parent_id' => 2
+            'parent_id' => 1
         ],[
             'title' => 'Протеин',
-            'parent_id' => 2
+            'parent_id' => 1
         ],[
             'title' => 'Напитки',
-            'parent_id' => 2
+            'parent_id' => 1
         ],[
             'title' => 'Аминокислоты',
-            'parent_id' => 2
+            'parent_id' => 1
         ],[
             'title' => 'Кубки',
-            'parent_id' => 3
+            'parent_id' => 2
         ],[
             'title' => 'Медали',
-            'parent_id' => 3
+            'parent_id' => 2
         ],[
             'title' => 'Конусы спортивные',
-            'parent_id' => 3
+            'parent_id' => 2
         ],[
             'title' => 'Свистки',
-            'parent_id' => 3
+            'parent_id' => 2
         ],[
             'title' => 'Кросфит',
-            'parent_id' => 3
-        ],[
-            'title' => 'Мужская одежда',
-            'parent_id' => 1
-        ],[
-            'title' => 'Женская одежда',
-            'parent_id' => 1
-        ],[
-            'title' => 'Брюки',
-            'categories_id' => 17
-        ],[
-            'title' => 'Обувь',
-            'categories_id' => 17
-        ],[
-            'title' => 'Комбинезоны',
-            'categories_id' => 17
-        ],[
-            'title' => 'Брюки',
-            'categories_id' => 16
-        ],[
-            'title' => 'Обувь',
-            'categories_id' => 16
-        ],[
-            'title' => 'Куртки',
-            'categories_id' => 16
+            'parent_id' => 2
         ]]);
     }
 

@@ -25,7 +25,7 @@ return new class extends Migration
            'login' => 'admin',
            'email' => 'admin@admin.admin',
            'name' => 'admin',
-           'password' => \Illuminate\Support\Facades\Hash::make('wsr'),
+           'password' => \Illuminate\Support\Facades\Hash::make('admin'),
         ]);
     }
     /**

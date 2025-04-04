@@ -5,12 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PodGroup extends Model
+class Product extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'title',
-        'group_id'
+        'name',
+        'price',
+        'description',
     ];
+
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
 }
