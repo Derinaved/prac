@@ -62,9 +62,7 @@
                                 <li> <a href="{{ route('admin')}}" class="nav-link">Админ панель</a> </li>
                             @endif
 
-                            <li> <a href="{{ route('create_tasks')}}" class="nav-link">Создать заявку</a> </li>
-
-                            <li> <a href="{{ route('profile', \Illuminate\Support\Facades\Auth::user()->getAuthIdentifier()) }}" class="nav-link">Профиль</a> </li>
+                            <li> <a href="{{ route('orders.index', \Illuminate\Support\Facades\Auth::user()->getAuthIdentifier()) }}" class="nav-link">Профиль</a> </li>
 
                             <li> <a href="{{ route('logout') }}" class="nav-link">Выйти</a> </li>
                         @else
@@ -116,6 +114,6 @@
 </script>
 <footer class="bg-light text-center py-3">
     <div class="container">
-        <p>&copy; 2023 СпортМагазин</p>
+        <p>&copy; 2025 СпортМагазин</p>
     </div>
 </footer>

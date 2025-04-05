@@ -6,6 +6,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\FilterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\TaskControlletr;
@@ -23,8 +24,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/', function () {
-    $tasks = \App\Models\Task::all();
-    return view('home', compact('tasks'));
+    $products = \App\Models\Product::all();
+    return view('home', compact('products'));
 })->name('home');
 
 
@@ -71,11 +72,13 @@ Route::post('store_message', [MessageController::class, 'store'])->name('store_m
 
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
-Route::put('/cart/update/{product}', [CartController::class, 'update'])->name('cart.update');
-Route::delete('/cart/remove/{product}', [CartController::class, 'remove'])->name('cart.remove');
-Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+Route::put('/cart/update/{cart}', [CartController::class, 'update'])->name('cart.update');
+Route::delete('/cart/remove/{cart}', [CartController::class, 'remove'])->name('cart.remove');
 
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+
+Route::get('/orders', [OrderController::class, 'index'])->name('orders.index')->middleware('auth'); // Добавляем маршрут и middleware 'auth'

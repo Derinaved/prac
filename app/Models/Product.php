@@ -13,6 +13,7 @@ class Product extends Model
         'name',
         'price',
         'description',
+        'img',
     ];
 
     public function orderItems()

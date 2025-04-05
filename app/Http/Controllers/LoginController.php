@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -62,8 +63,8 @@ class LoginController extends Controller
     {
         Auth::logout();
 
-        $tasks = Task::all();
+        $products = Product::all();
 
-        return view('/home', compact('tasks'));
+        return view('/home', compact('products'));
     }
 }

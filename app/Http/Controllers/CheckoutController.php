@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
@@ -12,77 +13,77 @@ class CheckoutController extends Controller
 {
     public function index()
     {
-        $cart = session()->get('cart', []);
-        if (empty($cart)) {
-            return redirect()->route('cart.index');
-        }
-
-        // Проверка авторизации
-        if (!Auth::check()) {
-            return redirect()->route('login'); // Или другой маршрут для входа
-        }
-
-        return view('checkout', compact('cart'));
-    }
-
-    public function store(Request $request)
-    {
         if (!Auth::check()) {
             return redirect()->route('login');
         }
 
-        $cart = session()->get('cart');
+        $cart = Cart::where('user_id', Auth::id())->with('product')->get();
+        $totalPrice = $cart->sum(function ($item) {
+            return $item->product->price * $item->quantity;
+        });
 
-        if (empty($cart)) {
-            return redirect()->route('cart.index');
+        return view('checkout', compact('cart', 'totalPrice'));
+    }
+
+
+
+    public function store(Request $request)
+    {
+
+        if (!Auth::check()) {
+            return redirect()->route('login');
         }
 
 
-        // Валидация данных формы (добавьте необходимые правила валидации)
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            // ... другие поля
-        ]);
+        $cart = Cart::where('user_id', Auth::id())->with('product')->get();
+
+        if ($cart->isEmpty()) {
+            return redirect()->route('cart.index')->with('error', 'Ваша корзина пуста. Пожалуйста, добавьте товары для оформления заказа.');
+        }
 
 
-        DB::beginTransaction(); // Начало транзакции
+
 
         try {
-            // Создаем новый заказ
-            $order = new Order();
-            $order->user_id = Auth::id();
-            $order->total_price = 0; // Инициализируем общую цену
-            $order->status = 'pending';
-            // Добавьте другие поля заказа, если необходимо (например, адрес доставки)
-            $order->fill($validatedData); // Заполняем поля данными из формы
+            DB::beginTransaction();
+
+            $order = new Order([
+                'user_id' => Auth::id(),
+                'total_price' => $cart->sum(function ($item) {
+                    return $item->product->price * $item->quantity;
+                }),
+
+                // Добавьте другие поля заказа, если необходимо (например, адрес доставки)
+
+            ]);
             $order->save();
 
-            // Добавляем товары из корзины в заказ
-            foreach ($cart as $productId => $item) {
-                $orderItem = new OrderItem();
-                $orderItem->order_id = $order->id;
-                $orderItem->product_id = $productId;
-                $orderItem->quantity = $item['quantity'];
-                $orderItem->price = $item['price'];
-                $orderItem->save();
 
-                // Обновляем общую цену заказа
-                $order->total_price += $item['price'] * $item['quantity'];
+            foreach ($cart as $item) {
+                OrderItem::create([
+                    'order_id' => $order->id,
+                    'product_id' => $item->product_id,
+                    'quantity' => $item->quantity,
+                    'price' => $item->product->price,
+
+                ]);
             }
 
-            $order->save(); // Сохраняем заказ с обновленной ценой
 
-            DB::commit(); // Подтверждаем транзакцию
+            Cart::where('user_id', Auth::id())->delete();
 
-            session()->forget('cart'); // Очищаем корзину
 
-            return redirect()->route('thankyou');
+            DB::commit();
 
+
+
+
+            return redirect()->route('orders.index')->with('success', 'Заказ успешно оформлен!'); // Предполагается, что у вас есть маршрут 'orders.index' для отображения заказов пользователя
 
         } catch (\Exception $e) {
-            DB::rollBack(); // Откатываем транзакцию в случае ошибки
-            // Обработка ошибки, например, логирование или вывод сообщения об ошибке
-            return redirect()->back()->withErrors(['message' => 'Произошла ошибка при оформлении заказа. Попробуйте позже.']);
+            DB::rollBack();
+
+            return redirect()->back()->with('error', 'Произошла ошибка при оформлении заказа. Попробуйте позже.');
         }
     }
 }

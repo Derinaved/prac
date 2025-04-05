@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,75 +11,70 @@ class CartController extends Controller
 {
     public function index()
     {
-        if (!Auth::check()) { // Проверяем, авторизован ли пользователь
-            return redirect()->route('login'); // Перенаправляем на страницу входа
+        if (!Auth::check()) {
+            return redirect()->route('login');
         }
 
-        $cart = session()->get('cart', []);
+        $cart = Cart::where('user_id', Auth::id())->with('product')->get(); // Получаем товары из корзины для текущего пользователя
         return view('cart', compact('cart'));
     }
 
     public function add(Request $request)
     {
-        if (!Auth::check()) { // Проверяем, авторизован ли пользователь
-            return redirect()->route('login'); // Перенаправляем на страницу входа
+        if (!Auth::check()) {
+            return redirect()->route('login');
         }
 
-        $product_id = $request->input('product_id');
-        $quantity = $request->input('quantity', 1);
+        $productId = $request->input('product_id');
+        $quantity = $request->input('quantity');
 
-        $cart = session()->get('cart', []);
+        $cart = Cart::where('user_id', Auth::id())->where('product_id', $productId)->first();
 
-        if (isset($cart[$product_id])) {
-            $cart[$product_id]['quantity'] += $quantity;
+        if ($cart) {
+            $cart->quantity += $quantity;
+            $cart->save();
         } else {
-            // Здесь нужно получить информацию о товаре, например, из базы данных
-            $product = Product::find($product_id);
-            if (!$product) {
-                return redirect()->back()->with('error', 'Товар не найден');
-            }
-            $cart[$product_id] = [
-                'name' => $product->name,
-                'price' => $product->price,
-                'quantity' => $quantity,
-            ];
+            $cart = new Cart([
+                'user_id' => Auth::id(),
+                'product_id' => $productId,
+                'quantity' => $quantity
+            ]);
+            $cart->save();
         }
 
-        session()->put('cart', $cart);
-        return redirect()->back()->with('success', 'Товар добавлен в корзину');
+        return redirect()->back()->with('success', 'Товар добавлен в корзину.');
     }
 
-    public function update(Request $request, $productId)
+
+
+    public function update(Request $request, Cart $cart)
     {
-        if (!Auth::check()) { // Проверяем, авторизован ли пользователь
-            return redirect()->route('login'); // Перенаправляем на страницу входа
+        // Здесь $cart уже загружен по id из маршрута
+
+        if (!Auth::check() || $cart->user_id != Auth::id()) {
+            // Если пользователь не авторизован или пытается изменить чужую корзину
+            abort(403); // Возвращаем ошибку 403 Forbidden
         }
 
-        $cart = session()->get('cart');
+        $cart->quantity = $request->input('quantity');
+        $cart->save();
 
-        if(isset($cart[$productId])) {
-            $cart[$productId]['quantity'] = $request->input('quantity');
-            session()->put('cart', $cart);
-        }
 
-        return redirect()->route('cart.index');
+        return redirect()->route('cart.index', compact('cart'));
     }
 
-    public function remove(Request $request, $productId)
+
+
+    public function remove(Request $request, Cart $cart) // Изменено: теперь принимаем модель Cart
     {
-        if (!Auth::check()) { // Проверяем, авторизован ли пользователь
-            return redirect()->route('login'); // Перенаправляем на страницу входа
+        if (!Auth::check() || $cart->user_id != Auth::id()) {
+            // Если пользователь не авторизован или пытается изменить чужую корзину
+            abort(403); // Возвращаем ошибку 403 Forbidden
         }
 
-        $cart = session()->get('cart');
+        $cart->delete();
 
-
-        if (isset($cart[$productId])) {
-            unset($cart[$productId]);
-            session()->put('cart', $cart);
-        }
-
-        return redirect()->route('cart.index');
+        return redirect()->route('cart.index', compact('cart'));
     }
 
 }
