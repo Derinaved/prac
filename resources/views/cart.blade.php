@@ -8,7 +8,7 @@
 
         @if($cart->isEmpty())
             <p>Ваша корзина пуста.</p>
-            <a href="{{ route('products.index') }}" class="btn btn-primary">Перейти к покупкам</a>
+            <a href="{{ route('home') }}" class="btn btn-primary">Перейти к покупкам</a>
         @else
             <table class="table">
                 <thead>

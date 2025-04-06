@@ -1,6 +1,5 @@
 @extends('main')
 @section('content')
-
     <section class="py-5">
         <div class="container">
             <h2 class="text-center mb-4">Популярные товары</h2>

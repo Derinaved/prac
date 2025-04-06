@@ -11,6 +11,8 @@ class Category extends Model
 
     protected $fillable = [
         'title',
+        'img',
+        'parent_id',
     ];
 
     public static function roots()

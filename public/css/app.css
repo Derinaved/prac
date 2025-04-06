@@ -86,3 +86,8 @@ main{
 .cr2{
     margin: 20px;
 }
+
+.category{
+    display: flex;
+    justify-content: space-around;
+}

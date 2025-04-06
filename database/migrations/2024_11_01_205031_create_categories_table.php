@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-
+            $table->string('img')->nullable();
             $table->integer('parent_id')->nullable();
 
 
@@ -23,45 +23,51 @@ return new class extends Migration
         });
         DB::table('categories')->insert([[
             'title' => 'Спортивное питание',
-            'parent_id' => 0
+            'img' => 'Спортивное питание.png',
+            'parent_id' => 0,
         ],[
             'title' => 'Спортивное оборудование',
+            'img' => 'Спортивное оборудование.png',
             'parent_id' => 0
         ],[
             'title' => 'Шейкеры',
+            'img' => 'Шейкеры.png',
             'parent_id' => 1
         ],[
             'title' => 'BCAA',
+            'img' => 'BCAA.png',
             'parent_id' => 1
         ],[
             'title' => 'Батончики',
+            'img' => 'Батончики.png',
             'parent_id' => 1
         ],[
             'title' => 'Креатин',
+            'img' => 'Креатин.png',
             'parent_id' => 1
         ],[
             'title' => 'Протеин',
-            'parent_id' => 1
-        ],[
-            'title' => 'Напитки',
+            'img' => 'Протеин.png',
             'parent_id' => 1
         ],[
             'title' => 'Аминокислоты',
+            'img' => 'Аминокислоты.png',
             'parent_id' => 1
         ],[
             'title' => 'Кубки',
+            'img' => 'Кубки.png',
             'parent_id' => 2
         ],[
             'title' => 'Медали',
+            'img' => 'Медали.png',
             'parent_id' => 2
         ],[
             'title' => 'Конусы спортивные',
+            'img' => 'Конусы спортивные.png',
             'parent_id' => 2
         ],[
             'title' => 'Свистки',
-            'parent_id' => 2
-        ],[
-            'title' => 'Кросфит',
+            'img' => 'Свистки.png',
             'parent_id' => 2
         ]]);
     }

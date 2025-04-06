@@ -20,36 +20,25 @@
                     <button  class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton1"
                              type="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
                         Каталог
-
                     </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     @if($items->count())
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                             @foreach($items as $item)
                                 <li>
-                                    <a href="{{route('products.index')}}" class="dropdown-item">{{$item->title}}</a>
+                                    <a href="{{route('categories.show', $item->id)}}" class="dropdown-item">{{$item->title}}</a>
                                 </li>
                                 @if ($item->children->count())
                                     <ul>
                                         @foreach($item->children as $child)
-                                            <a href="#" class="dropdown-item">
+                                            <a href="{{ route('categories.show', $child->id) }}" class="dropdown-item">
                                                 {{$child->title}}
                                             </a>
-                                            @if($child->children->count())
-                                                <ul>
-                                                    @foreach($child->children as $sec_child)
-                                                        <a href="#" class="dropdown-item">
-                                                            {{$sec_child->title}}
-                                                        </a>
-                                                    @endforeach
-                                                </ul>
-                                            @endif
-
                                         @endforeach
                                     </ul>
                                 @endif
                             @endforeach
                     @endif
-                        </ul>
+                    </ul>
                 </div>
                     <a class="navbar-brand" href="{{ route('cart.index') }}">Корзина</a>
                 <a class="navbar-brand" href="{{route('create_message')}}">Обратная связь</a>

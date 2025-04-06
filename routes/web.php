@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\FilterController;
 use App\Http\Controllers\LoginController;
@@ -11,6 +12,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\TaskControlletr;
 use App\Http\Controllers\UserController;
+use App\Models\Product;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,7 +27,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/', function () {
-    $products = \App\Models\Product::all();
+    $products = DB::table('products')->inRandomOrder()->limit(9)->get();;
     return view('home', compact('products'));
 })->name('home');
 
@@ -82,3 +85,10 @@ Route::get('/products', [ProductController::class, 'index'])->name('products.ind
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 
 Route::get('/orders', [OrderController::class, 'index'])->name('orders.index')->middleware('auth'); // Добавляем маршрут и middleware 'auth'
+
+Route::group([
+    'as' => 'categories.',
+    'prefix' => 'categories',
+], function() {
+    Route::get('categories/{category}', [CategoriesController::class, 'show'])->name('show');
+});
