@@ -31,7 +31,7 @@ class LoginController extends Controller
             'password' => 'required|string',
         ]);
         if (Auth::attempt($request->only('login', 'password'))) {
-            return redirect()->route('profile', Auth::user()->getAuthIdentifier());
+            return redirect()->route('home');
         }
         return back()
             ->withInput()
@@ -56,15 +56,14 @@ class LoginController extends Controller
 
         $tasks = Task::all();
 
-        return redirect()->route('profile', Auth::id());
+        return redirect()->route('home');
     }
 
     public function logOut(Request $request)
     {
         Auth::logout();
 
-        $products = Product::all();
 
-        return view('/home', compact('products'));
+        return redirect()->route('home');
     }
 }
