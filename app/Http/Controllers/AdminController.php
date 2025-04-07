@@ -10,7 +10,7 @@ class AdminController extends Controller
 {
     public function index()
     {
-        return redirect()->route('filter');
+        return view('admin');
     }
 
     public function show(Task $task)

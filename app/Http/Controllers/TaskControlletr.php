@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Product;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -14,26 +16,25 @@ class TaskControlletr extends Controller
 {
     public function index()
     {
-        return view('create_task');
+        $categories = Category::where('parent_id', '!=', 0)->get();
+        return view('create_task', compact('categories'));
     }
 
     public function store(Request $request)
     {
 //        dd($request);
         $data = $request->only([
-            'title',
+            'name',
+            'price',
             'description',
-            'categories_id',
+            'category_id',
             ]);
-        $filename = $request->file('image');
-        $destinationPath = 'C:/Users/dan/prak/public/image/';
+        $filename = $request->file('img');
+        $destinationPath = public_path() . '/image/product';
         $originalFile = $filename->getClientOriginalName();
         $filename->move($destinationPath, $originalFile);
-        $data['image'] = $originalFile;
-        $data['statuses_id'] = 1;
-        $data['user_id'] = Auth::user()->getAuthIdentifier();
-
-        $task = Task::create($data);
+        $data['img'] = $originalFile;
+        $product = Product::create($data);
         return redirect()->route('profile', Auth::user()->getAuthIdentifier());
     }
 
