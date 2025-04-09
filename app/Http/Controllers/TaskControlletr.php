@@ -35,7 +35,7 @@ class TaskControlletr extends Controller
         $filename->move($destinationPath, $originalFile);
         $data['img'] = $originalFile;
         $product = Product::create($data);
-        return redirect()->route('profile', Auth::user()->getAuthIdentifier());
+        return redirect()->route('home');
     }
 
     public function show(Task $task)

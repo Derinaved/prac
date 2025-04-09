@@ -11,7 +11,7 @@
     <div class="card" style="width: 50%;">
         <div class="card-body ">
             <h5 class="card-title">{{$product->name}}</h5>
-            <img src="/image/product/{{$product->img}}" alt="">
+            <img src="/image/product/{{$product->img}}" class="card-img-top" alt="">
             <p class="card-text">{{ $product->description }}</p>
             <p>Цена: {{ $product->price }}</p>
 

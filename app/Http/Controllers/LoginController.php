@@ -54,8 +54,6 @@ class LoginController extends Controller
         $user = User::create($data);
         Auth::login($user);
 
-        $tasks = Task::all();
-
         return redirect()->route('home');
     }
 

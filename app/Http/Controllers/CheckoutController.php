@@ -41,9 +41,6 @@ class CheckoutController extends Controller
             return redirect()->route('cart.index')->with('error', 'Ваша корзина пуста. Пожалуйста, добавьте товары для оформления заказа.');
         }
 
-
-
-
         try {
             DB::beginTransaction();
 
@@ -56,6 +53,7 @@ class CheckoutController extends Controller
                 // Добавьте другие поля заказа, если необходимо (например, адрес доставки)
 
             ]);
+            $order['address'] = $request['address'];
             $order->save();
 
 
