@@ -94,8 +94,20 @@ class AdminController extends Controller
         return view('products.edit', compact('product', 'categories'));
     }
 
-    public function updateProduct(Product $product)
+    public function updateProduct(Request $request, Product $product)
     {
+        $data = $request->only([
+            'name',
+            'price',
+            'description',
+            'category_id',
+        ]);
+        $product->name = $data['name'];
+        $product->price = $data['price'];
+        $product->description = $data['description'];
+        $product->category_id = $data['category_id'];
+        $product->save();
+
         return redirect()->route('products.show', compact('product'));
     }
 

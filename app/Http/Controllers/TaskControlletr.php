@@ -22,7 +22,6 @@ class TaskControlletr extends Controller
 
     public function store(Request $request)
     {
-//        dd($request);
         $data = $request->only([
             'name',
             'price',
@@ -32,7 +31,6 @@ class TaskControlletr extends Controller
         $filename = $request->file('img');
         $destinationPath = public_path() . '/image/product';
         $originalFile = $filename->getClientOriginalName();
-        dd($request);
         $filename->move($destinationPath, $originalFile);
         $data['img'] = $originalFile;
         $product = Product::create($data);
