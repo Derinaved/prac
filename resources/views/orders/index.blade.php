@@ -11,6 +11,7 @@
                 <div class="card mb-3">
                     <div class="card-header">
                         Заказ №{{ $order->id }} от {{ $order->created_at->format('d.m.Y H:i') }}
+                         Статус заказа:{{  \App\Models\Status::query()->find($order->status_id)->title}}
                         <span class="float-end">Сумма: {{ $order->total_price }} руб.</span>
                     </div>
                     <div class="card-body">

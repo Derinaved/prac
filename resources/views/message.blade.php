@@ -12,6 +12,15 @@
                     </div>
                     <h4 class="card-title">{{$message->name}}</h4>
                     <p>{{$message->message}}</p>
+                    @auth()
+                        @if(\Illuminate\Support\Facades\Auth::user()->getAuthIdentifier() == 1)
+                            <form method="post" action="{{route('destroy_message', $message)}}">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger push">Удалить</button>
+                            </form>
+                        @endif
+                    @endif
                 </div>
             </div>
         @endforeach

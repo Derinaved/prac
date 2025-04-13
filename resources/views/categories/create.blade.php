@@ -12,6 +12,14 @@
             <p>Поле не должно быть пустым</p>
             @enderror
         </div>
+        <div class="mb-3">
+            <select name="parent_id" class="form-select" aria-label="Default select example">
+                <option  selected value="0"> Без родительской категории </option>
+                @foreach($categories as $category)
+                    <option  value="{{$category->id}}"> {{$category->title}} </option>
+                @endforeach
+            </select>
+        </div>
         <button type="submit" class="btn btn-primary">Создать</button>
     </form>
 @endsection

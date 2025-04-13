@@ -16,11 +16,12 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->nullable(); // Если нужно, свяжите с users
             $table->string('address'); // Если нужно, свяжите с users
             $table->decimal('total_price', 10, 2);
-            $table->string('status')->default('pending'); // Например, 'pending', 'processing', 'shipped', 'completed'
+            $table->unsignedBigInteger('status_id')->default('1'); // Например, 'pending', 'processing', 'shipped', 'completed'
             $table->timestamps();
 
             // Внешний ключ, если связан с таблицей users
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('status_id')->references('id')->on('statuses');
         });
     }
 

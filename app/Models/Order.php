@@ -11,8 +11,9 @@ class Order extends Model
 
     protected $fillable = [
         'user_id',
+        'address',
         'total_price',
-        'status',
+        'status_id',
         ];
 
     // Связь с User (принадлежит пользователю)

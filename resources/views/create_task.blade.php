@@ -1,7 +1,7 @@
 @extends('main')
 @section('content')
 
-    <form class="form" method="post" action="{{route('task.store')}}" enctype="multipart/form-data">
+    <form class="row align-items-center" style="width: 60%" method="post" action="{{route('task.store')}}" enctype="multipart/form-data">
         @csrf
         <legend>
             Создать новую карточку товара
@@ -14,11 +14,11 @@
             <label for="exampleInputEmail1" class=" form-label">Цена</label>
             <input type="text" class="form-control" name="price" id="exampleInputEmail1" aria-describedby="emailHelp">
         </div>
-        <div class="mb-3">
+        <div class="mb-3 max-w-xL">
             <label for="exampleFormControlTextarea1" class="form-label">Описание</label>
             <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3"></textarea>
         </div>
-        <select name="category_id" class="form-select" aria-label="Default select example">
+        <select name="category_id" class="form-select mb-3 " aria-label="Default select example">
             <option selected>Выберите категорию</option>
             @foreach($categories as $category)
                 <option  value="{{$category->id}}"> {{$category->title}} </option>

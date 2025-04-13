@@ -50,16 +50,25 @@ Route::post('task', [TaskControlletr::class, 'store'])->name('task.store');
 
 Route::get('admin', [AdminController::class, 'index'])->name('admin');
 Route::get('category_create', [AdminController::class, 'create'])->name('create_category');
+Route::post('category_store', [AdminController::class, 'store'])->name('store_category');
+Route::get('category_show', [AdminController::class, 'show'])->name('show_category');
 Route::get('admin/{task}', [AdminController::class, 'show'])->name('admin_show');
-Route::post('category_create', [AdminController::class, 'store'])->name('store_category');
-Route::get('delete/{category}', [AdminController::class, 'destroy'])->name('delete');
+Route::get('category_edit/{category}', [AdminController::class, 'edit'])->name('edit_category');
+Route::delete('category_destroy/{category}', [AdminController::class, 'destroy'])->name('destroy_category');
+Route::get('orders_index', [AdminController::class, 'indexOrder'])->name('index_orders');
+Route::patch('order_update/{order}', [AdminController::class, 'updateOrder'])->name('update_order');
+Route::delete('destroy_message/{message}', [AdminController::class, 'destroyMessage'])->name('destroy_message');
+Route::patch('category_create/{category}', [AdminController::class, 'update'])->name('update_category');
+Route::get('edit_product/{product}', [AdminController::class, 'editProduct'])->name('edit_product');
+Route::patch('create_product/{product}', [AdminController::class, 'updateProduct'])->name('update_product');
+Route::delete('destroy_product/{product}', [AdminController::class, 'destroyProduct'])->name('destroy_product');
 
 Route::get('status_ok/{task}', [StatusController::class, 'status_ok'])->name('status_ok');
 Route::get('status_otkaz/{task}', [StatusController::class, 'status_otk'])->name('status_otk');
 Route::patch('status_update/{task}', [StatusController::class, 'status_upd_ok'])->name('status_upd_ok');
 Route::patch('status_update_otk/{task}', [StatusController::class, 'status_upd_otk'])->name('status_upd_otk');
-
 Route::get('filter', [FilterController::class, 'filter'])->name('filter');
+
 
 Route::group([
     'as' => 'blog.',

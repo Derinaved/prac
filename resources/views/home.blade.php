@@ -8,7 +8,8 @@
                 @foreach ($products as $product)
                     <div class="col-md-4 mb-4">
                         <div class="card">
-                            <img src="/image/product/{{$product->img}}" class="card-img-top" alt="{{ $product->name }}">
+                            <a href="{{ route('products.show', $product->id) }}" ><img src="/image/product/{{$product->img}}" class="card-img-top" alt="{{ $product->name }}"> </a>
+
                             <div class="card-body">
                                 <h5 class="card-title">{{ $product->name }}</h5>
                                 <p class="card-text">{{ Str::limit($product->description, 150) }}</p>

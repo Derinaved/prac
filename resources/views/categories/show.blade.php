@@ -28,7 +28,7 @@
                             <div class="card text-bg-secondary mb-5 text-center" style="max-width: 18rem;">
                                 <div class="card-header">{{$child->title}}</div>
                                 <div class="card-body aaa">
-                                    <img src="/image/category/{{$child->img}}" class="card-img-top" alt="">
+                                    <a href="{{ route('categories.show', $child->id) }}"><img src="/image/category/{{$child->img}}" class="card-img-top" alt=""></a>
                                     <button type="button" class="btn btn-primary"><a class="nav-link" href="{{route('categories.show', $child)}}">Подробнее</a></button>
                                 </div>
                             </div>
@@ -39,7 +39,7 @@
                             <div class="card-header">{{$product->name}}</div>
                             <div class="card-header">{{$product->price}}  ₽</div>
                             <div class="card-body aaa">
-                                <img src="/image/product/{{$product->img}}" class="card-img-top" alt="">
+                                <a href="{{ route('products.show', $product->id) }}" ><img src="/image/product/{{$product->img}}" class="card-img-top" alt="{{ $product->name }}"> </a>
                                 <button type="button" class="btn btn-primary"><a class="nav-link" href="{{route('products.show', $product)}}">Подробнее</a></button>
                             </div>
                         </div>

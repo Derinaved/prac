@@ -1,26 +1,26 @@
 @extends('main')
 @section('content')
 
-    <form class="form" method="post" action="{{route('store_message')}}">
+    <form class="row gy-2 gx-3 align-items-center" method="post" action="{{route('store_message')}}">
         @csrf
         <legend>
             Оставьте ваш отзыв
         </legend>
-        <div class="mb-3 max-w-xL">
+        <div class="mb-3 col-auto">
             <label for="exampleInputEmail1" class=" form-label">Имя</label>
             <input type="text" class="form-control {{$errors->has('name') ? 'bg-danger-subtle border-danger-subtle'  : 'bg-primary-subtle border-primary-subtle'}}" name="name" id="exampleInputEmail1" aria-describedby="emailHelp">
             @error('name')
             <p>Поле не должно быть пустым</p>
             @enderror
         </div>
-        <div class="mb-3 max-w-xL">
+        <div class="mb-3 col-auto">
             <label for="exampleInputEmail1" class=" form-label">Почта</label>
             <input type="text" class="form-control {{$errors->has('email') ? 'bg-danger-subtle border-danger-subtle'  : 'bg-primary-subtle border-primary-subtle'}}" name="email" id="exampleInputEmail1" aria-describedby="emailHelp">
             @error('email')
             <p>Поле не должно быть пустым</p>
             @enderror
         </div>
-        <div class="mb-3 max-w-xL">
+        <div class="mb-3 col-auto">
             <label for="exampleInputEmail1" class=" form-label">Номер телефона</label>
             <input type="text" class="form-control {{$errors->has('phone') ? 'bg-danger-subtle border-danger-subtle'  : 'bg-primary-subtle border-primary-subtle'}}" name="phone" id="exampleInputEmail1" aria-describedby="emailHelp">
             @error('phone')
