@@ -50,7 +50,7 @@ class LoginController extends Controller
             'agreement' => 'required',
         ]);
         $data = $request->only('login', 'email', 'name', 'password');
-        $data['password'] = Hash::make('password');
+        $data['password'] = Hash::make($request->only('password')['password']);
         $user = User::create($data);
         Auth::login($user);
 

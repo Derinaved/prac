@@ -23,6 +23,7 @@
                                 <th>Цена</th>
                                 <th>Количество</th>
                                 <th>Сумма</th>
+                                <th></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -32,6 +33,11 @@
                                     <td>{{ $item->price }} руб.</td>
                                     <td>{{ $item->quantity }}</td>
                                     <td>{{ $item->price * $item->quantity }} руб.</td>
+                                    @if($order->status_id == 6)
+                                        <td><a href="{{route('create_feedback', $item->product)}}" class="btn btn-success">Оставить отзыв</a></td>
+                                    @else
+                                        <td></td>
+                                    @endif
                                 </tr>
                             @endforeach
                             </tbody>

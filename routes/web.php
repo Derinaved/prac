@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\FilterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MessageController;
@@ -101,3 +102,7 @@ Route::group([
 ], function() {
     Route::get('categories/{category}', [CategoriesController::class, 'show'])->name('show');
 });
+
+Route::get('create_feedback/{product}', [FeedbackController::class, 'create'])->name('create_feedback');
+Route::post('store_feedback/{product}', [FeedbackController::class, 'store'])->name('store_feedback');
+Route::get('show_feedback/product', [FeedbackController::class, 'show'])->name('show_feedback');

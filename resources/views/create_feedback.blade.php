@@ -1,0 +1,130 @@
+@extends('main')
+@section('content')
+
+    <style>
+        .rate {
+            float: left;
+            height: 46px;
+            padding: 0 10px;
+        }
+        .rate:not(:checked) > input {
+            position:absolute;
+            display: none;
+        }
+        .rate:not(:checked) > label {
+            float:right;
+            width:1em;
+            overflow:hidden;
+            white-space:nowrap;
+            cursor:pointer;
+            font-size:30px;
+            color:#ccc;
+        }
+        .rate:not(:checked) > label:before {
+            content: '★ ';
+        }
+
+        .feedback{
+            float: left;
+            height: 46px;
+            padding: 0 10px;
+            width:1em;
+            overflow:hidden;
+            white-space:nowrap;
+            cursor:pointer;
+            font-size:30px;
+
+            content: '★ ';
+            color: #ffc700;
+        }
+
+        .rate > input:checked ~ label{
+            color: #ffc700;
+        }
+        .rate:not(:checked) > label:hover,
+        .rate:not(:checked) > label:hover ~ label {
+            color: #deb217;
+        }
+        .rate > input:checked + label:hover,
+        .rate > input:checked + label:hover ~ label,
+        .rate > input:checked ~ label:hover,
+        .rate > input:checked ~ label:hover  ~ label,
+        .rate > label:hover ~ input:checked ~ label {
+            color: #c59b08;
+        }
+        .rating-container .form-control:hover, .rating-container .form-control:focus{
+            background: #fff;
+            border: 1px solid #ced4da;
+        }
+        .rating-container textarea:focus, .rating-container input:focus {
+            color: #000;
+        }
+        /* End */
+        .max-w-xL {
+            width: 500px;
+        }
+        .form{
+            width: 500px;
+
+            display: flex;
+            align-items: stretch;
+            flex-direction: column;
+        }
+        main{
+            display: flex;
+            margin-top: 100px;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .card-body{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .cr{
+            display: flex;
+            width: 75%;
+            justify-content: center;
+        }
+        .cr2{
+            margin: 20px;
+        }
+
+        .category{
+            display: flex;
+            justify-content: space-around;
+        }
+
+    </style>
+
+    <form class="row gy-2 gx-3 align-items-center" method="post" action="{{route('store_feedback', $product)}}">
+        @csrf
+        <legend>
+            Оставьте ваш отзыв
+        </legend>
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Отзыв</label>
+            <textarea class="form-control {{$errors->has('message') ? 'bg-danger-subtle border-danger-subtle'  : 'bg-primary-subtle border-primary-subtle'}}"  name="message" id="exampleFormControlTextarea1" rows="3"></textarea>
+            @error('phone')
+            <p>Поле не должно быть пустым</p>
+            @enderror
+        </div>
+        <div class="col-sm-6">
+            <div class="rate">
+                <input type="radio" id="star5" class="rate" name="rating" value="5"/>
+                <label for="star5" title="text">5 stars</label>
+                <input type="radio"  id="star4" class="rate" name="rating" value="4"/>
+                <label for="star4" title="text">4 stars</label>
+                <input type="radio" id="star3" class="rate" name="rating" value="3"/>
+                <label for="star3" title="text">3 stars</label>
+                <input type="radio" id="star2" class="rate" name="rating" value="2">
+                <label for="star2" title="text">2 stars</label>
+                <input type="radio" id="star1" class="rate" name="rating" value="1"/>
+                <label for="star1" title="text">1 star</label>
+            </div>
+        </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Отправить отзыв</button>
+    </form>
+@endsection

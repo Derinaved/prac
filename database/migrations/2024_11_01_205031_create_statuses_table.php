@@ -23,9 +23,6 @@ return new class extends Migration
                 'title' => 'В обработке'
             ],
             [
-                'title' => 'В обработке'
-            ],
-            [
                 'title' => 'В службе доставки'
             ],
             [

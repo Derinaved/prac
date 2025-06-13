@@ -20,9 +20,11 @@
                     @csrf
                     @method('PATCH')
                         Статус заказа:
-                        <select name="status_id" class="form-select" aria-label="Default select example">
+                        <select name="status_id" class="form-select" @if($order->status_id == 5) disabled @endif aria-label="Default select example">
                             @foreach($statuses as $status)
+                                @if($order->status_id <= $status->id)
                                 <option @if($order->status_id == $status->id) selected @endif value="{{$status->id}}"> {{$status->title}} </option>
+                                @endif
                             @endforeach
                         </select>
                         <button class="btn btn-secondary" type="submit">Сохранить</button>
